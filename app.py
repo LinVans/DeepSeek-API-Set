@@ -12,9 +12,9 @@ def format_response(response_text):
     """将换行符转换为 HTML <br>，以便前端显示时换行"""
     return response_text.replace("\n", "<br>")
 
-def get_response_from_proxy(message, model="deepseek-r1"):
+def get_response_from_proxy(message, model="deepseek-v3"):
     """通过中间商 API 获取响应"""
-    conn = http.client.HTTPSConnection("xiaoai.plus")
+    conn = http.client.HTTPSConnection("xiaoai.plus", timeout=30)
 
     # 构造消息数据
     payload = json.dumps({
@@ -63,7 +63,7 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     user_message = request.form['message']
-    model = request.form.get('model', 'deepseek-r1')  # 可以选择模型
+    model = request.form.get('model', 'deepseek-v3')  # 可以选择模型
     bot_response = get_response_from_proxy(user_message, model)
     return jsonify({'response': bot_response})
 
