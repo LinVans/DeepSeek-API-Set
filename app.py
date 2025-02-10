@@ -14,7 +14,7 @@ def format_response(response_text):
 
 def get_response_from_proxy(message, model="deepseek-v3"):
     """通过中间商 API 获取响应"""
-    conn = http.client.HTTPSConnection("xiaoai.plus", timeout=30)
+    conn = http.client.HTTPSConnection("xiaoai.plus", timeout=300)
 
     # 构造消息数据
     payload = json.dumps({
