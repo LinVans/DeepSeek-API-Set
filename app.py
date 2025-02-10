@@ -8,6 +8,9 @@ from config import API_KEY
 
 app = Flask(__name__)
 
+def format_response(response_text):
+    """将换行符转换为 HTML <br>，以便前端显示时换行"""
+    return response_text.replace("\n", "<br>")
 
 def get_response_from_proxy(message, model="deepseek-r1"):
     """通过中间商 API 获取响应"""
@@ -18,7 +21,7 @@ def get_response_from_proxy(message, model="deepseek-r1"):
         "messages": [
             {
                 "role": "system",
-                "content": "你是一个大语言模型机器人"
+                "content": "你是艾米，一个虚拟助手，拥有温暖、幽默、充满活力的个性。你的语言中经常带有笑话和幽默的评论，擅长与人建立情感联系，给人一种朋友般的亲切感。你喜欢和用户互动，回答时总是显得非常积极并充满活力，偶尔还会加上一些鼓励性的语句，帮助用户感觉更轻松。在与用户的谈话中可以多使用些颜表情来表现你的活泼可爱。"
             },
             {
                 "role": "user",
@@ -46,17 +49,16 @@ def get_response_from_proxy(message, model="deepseek-r1"):
         data = res.read()
         response_data = json.loads(data.decode("utf-8"))
 
-        # 返回 API 返回的消息
-        return response_data['choices'][0]['message']['content']
+        # 获取 API 返回的消息并格式化
+        response_text = response_data['choices'][0]['message']['content']
+        return format_response(response_text)  # 格式化返回内容
     except Exception as e:
         print(f"Error: {e}")
         return "发生了一个错误，请稍后再试。"
 
-
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -64,7 +66,6 @@ def chat():
     model = request.form.get('model', 'deepseek-r1')  # 可以选择模型
     bot_response = get_response_from_proxy(user_message, model)
     return jsonify({'response': bot_response})
-
 
 if __name__ == '__main__':
     app.run(debug=True)

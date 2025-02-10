@@ -20,6 +20,7 @@
             </select>
         </div>
 
+        <!-- 消息显示区域 -->
         <div class="messages" id="messages"></div>
 
         <div class="input-container">
@@ -28,7 +29,14 @@
         </div>
 
         <!-- 思考中提示 -->
-        <div id="loading" class="loading-message">思考中...</div>
+        <div id="loading" class="loading-message">
+            <div class="loader">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <p>思考中...</p>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

@@ -55,7 +55,8 @@ select {
 
 .messages {
     flex-grow: 1;
-    max-height: 400px;
+    min-height: 700px; /* 最小高度保证聊天框不收缩 */
+    max-height: 900px;
     overflow-y: auto;
     margin-bottom: 15px;
     padding: 10px;
@@ -63,6 +64,9 @@ select {
     border-radius: 10px;
     background-color: #f1f1f1;
     position: relative;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* 增加阴影效果 */
+    display: flex; /* 使容器成为flex布局 */
+    flex-direction: column; /* 垂直排列消息 */
 }
 
 .message-box {
@@ -94,7 +98,7 @@ select {
 .message-user {
     background-color: #007bff;
     color: #fff;
-    align-self: flex-end;
+    align-self: flex-end; /* 用户消息右对齐 */
     padding: 10px;
     border-radius: 10px;
     margin: 5px 0;
@@ -103,14 +107,30 @@ select {
 }
 
 .message-bot {
-    background-color: #f1f1f1;
-    color: #333;
-    align-self: flex-start;
-    padding: 10px;
+    background-color: #fff; /* 设置背景为白色 */
+    color: #333; /* 字体颜色为深灰 */
+    align-self: flex-start; /* 机器人消息左对齐 */
+    padding: 12px;
     border-radius: 10px;
     margin: 5px 0;
     max-width: 80%;
     word-wrap: break-word;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    border: 1px solid #ddd; /* 增加边框 */
+}
+
+/* 为消息添加渐变色背景可以提升层次感 */
+.message-bot {
+    background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); /* 渐变背景色 */
+    color: #333;
+    align-self: flex-start;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 8px 0;
+    max-width: 80%;
+    word-wrap: break-word;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    border: 1px solid #e0e0e0; /* 更细的边框 */
 }
 
 /* 思考中提示 */
@@ -120,6 +140,50 @@ select {
     font-size: 1.2rem;
     color: #888;
     margin-top: 20px;
+}
+
+/* 动画小圆点 */
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #3e74e2;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: scale(0.5);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+#loading p {
+    font-size: 16px;
+    color: #888;
+    margin-top: 10px;
 }
 
 /* 手机端响应 */
