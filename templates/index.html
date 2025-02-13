@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Deepseek 聊天</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="chat-container">
-        <h2>Deepseek 聊天V1.00</h2>
+        <h2 class="mobile-title">Deepseek 聊天V1.00</h2>
 
         <!-- 模型选择 -->
-        <div class="model-selector-container">
+        <div class="model-selector-container mobile-selector">
             <label for="model-selector">选择模型：</label>
             <select id="model-selector">
                 <option value="deepseek-v3" selected>deepseek-v3</option>
@@ -21,15 +21,15 @@
         </div>
 
         <!-- 消息显示区域 -->
-        <div class="messages" id="messages"></div>
+        <div class="messages mobile-messages" id="messages"></div>
 
-        <div class="input-container">
+        <div class="input-container mobile-input">
             <textarea id="user-message" class="message-box" placeholder="请输入消息..." rows="3"></textarea>
             <button onclick="sendMessage()" class="send-btn">发送</button>
         </div>
 
         <!-- 思考中提示 -->
-        <div id="loading" class="loading-message">
+        <div id="loading" class="loading-message mobile-loading">
             <div class="loader">
                 <div class="dot"></div>
                 <div class="dot"></div>
